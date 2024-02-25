@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/cards/HeartIcon.jsx", "components/cards/HeartIcon.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/cards/cardTransaction.tsx", "components/cards/cardTransaction.tsx"],
   "exclude": ["node_modules"]
 }
