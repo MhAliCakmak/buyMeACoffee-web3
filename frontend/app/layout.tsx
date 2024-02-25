@@ -24,8 +24,8 @@ export const metadata: Metadata = {
 	],
 	icons: {
 		icon: "/favicon.ico",
-		shortcut: "/favicon-16x16.png",
-		apple: "/apple-touch-icon.png",
+		shortcut: "/favicon.ico",
+		apple: "/coffee.png",
 	},
 };
 
@@ -37,6 +37,7 @@ export default function RootLayout({
 
 	return (
 		<html lang="en" suppressHydrationWarning>
+			
 			<head />
 			<body
 				className={clsx(
@@ -45,7 +46,7 @@ export default function RootLayout({
 				)}
 			> <ContextProvider>
 				<Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-					<div className="relative flex flex-col h-screen">
+					<div className="relative flex flex-col h-full">
 						<Navbar />
 						<main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
 							{children}
@@ -55,7 +56,7 @@ export default function RootLayout({
 								isExternal
 								className="flex items-center gap-1 text-current"
 								href="https://mehmetalicakmak.org"
-								title="nextui.org homepage"
+								title="Mehmet Ali Çakmak's website"
 							>
 								<span className="text-default-600">Powered by</span>
 								<p className="text-blue-500 hover:text-blue-600">Mehmet Ali Çakmak</p>

@@ -8,7 +8,7 @@ import { GithubIcon } from "@/components/icons";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { CardCoffee } from "@/components/cards/cardCoffee";
 import { DrawerCoffee } from "@/components/cards/drawerCoffee";
-import { CarouselOrientation } from "@/components/corouselTransaction";
+import { CorouselTransaction } from "@/components/corouselTransaction";
 
 export default function Home() {
   const chooseColor = [
@@ -34,9 +34,11 @@ export default function Home() {
           <span className={title({ color: randomColor,size:"sm" })}>(My Guess)</span>,
           decentralized and modern Blockchain Developer 😴😴
         </h2>
+
 		<div className="mt-4">
 
 		<DrawerCoffee />
+    <CorouselTransaction/>
 		</div>
       </div>
       <div className="flex gap-3 ">

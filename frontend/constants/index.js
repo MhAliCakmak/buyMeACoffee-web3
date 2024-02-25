@@ -1,5 +1,5 @@
-export const contractAddress = "0x7dc3c30694384530cd232b5102828e675e3cc2bf";
-export const abi = [
+export const CONTRACT_ADDRESS = "0x82913d6ccd6723908c2d4111a7c6d6231f2327e6";
+export const ABI = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
     anonymous: false,
@@ -23,6 +23,18 @@ export const abi = [
         name: "timestamp",
         type: "uint256",
       },
+      {
+        indexed: false,
+        internalType: "uint8",
+        name: "coffType",
+        type: "uint8",
+      },
+      {
+        indexed: false,
+        internalType: "uint8",
+        name: "coffSize",
+        type: "uint8",
+      },
     ],
     name: "NewMemo",
     type: "event",
@@ -31,7 +43,8 @@ export const abi = [
     inputs: [
       { internalType: "string", name: "_name", type: "string" },
       { internalType: "string", name: "_message", type: "string" },
-      { internalType: "uint256", name: "tipAmount", type: "uint256" },
+      { internalType: "uint8", name: "_coffType", type: "uint8" },
+      { internalType: "uint8", name: "_coffSize", type: "uint8" },
     ],
     name: "buyCoffee",
     outputs: [],
@@ -55,6 +68,8 @@ export const abi = [
           { internalType: "string", name: "message", type: "string" },
           { internalType: "address", name: "creator", type: "address" },
           { internalType: "uint256", name: "timestamp", type: "uint256" },
+          { internalType: "uint8", name: "coffType", type: "uint8" },
+          { internalType: "uint8", name: "coffSize", type: "uint8" },
         ],
         internalType: "struct BuyMeACoffee.Memo[]",
         name: "",

@@ -2,17 +2,17 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\blockchain\\buycoffeweb3\\hardhat\\contracts\\BuyMeACoffee.sol": {
-      "lastModificationDate": 1708604054462,
-      "contentHash": "6de28ed0f68a5cd51b3dd7b1fc4fb1e4",
+      "lastModificationDate": 1708884932718,
+      "contentHash": "81add4d5e01041677f8cd02ac397cda1",
       "sourceName": "contracts/BuyMeACoffee.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
-          "evmVersion": "paris",
           "optimizer": {
-            "enabled": false,
+            "enabled": true,
             "runs": 200
           },
+          "evmVersion": "paris",
           "outputSelection": {
             "*": {
               "*": [
@@ -44,11 +44,11 @@
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
-          "evmVersion": "paris",
           "optimizer": {
-            "enabled": false,
+            "enabled": true,
             "runs": 200
           },
+          "evmVersion": "paris",
           "outputSelection": {
             "*": {
               "*": [

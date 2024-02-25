@@ -7,7 +7,9 @@ contract BuyMeACoffee {
         string indexed name,
         string message,
         address creator,
-        uint256 timestamp
+        uint256 timestamp,
+        uint8 coffType,
+        uint8 coffSize
     );
 
     // The owner of contract deployer
@@ -21,6 +23,9 @@ contract BuyMeACoffee {
         string message;
         address creator;
         uint256 timestamp;
+        uint8 coffType;
+        uint8 coffSize;
+        
     }
     // An array of type Memo[] that stores all the memos in this contract
     Memo[] memos;
@@ -37,17 +42,18 @@ contract BuyMeACoffee {
     function buyCoffee(
         string memory _name,
         string memory _message,
-        uint256 tipAmount
+        uint8 _coffType,
+        uint8 _coffSize
     ) public payable {
-        require(msg.value >= price, "Insufficient amount");
-        // Send the tip to the contract
-        payable(address(this)).transfer(tipAmount);
-
+        require(msg.value > 0, "Insufficient amount");
+        require(_coffType >= 0 && _coffSize >= 0, "Invalid coffee type or size");
+        require(_coffType<4 && _coffSize<4, "Invalid coffee type or size");
+        
         // Add the new memo to the array of memos
-        memos.push(Memo(_name, _message, msg.sender, block.timestamp));
+        memos.push(Memo(_name, _message, msg.sender, block.timestamp,_coffType,_coffSize));
 
         // Emit the NewMemo event
-        emit NewMemo(_name, _message, msg.sender, block.timestamp);
+        emit NewMemo(_name, _message, msg.sender, block.timestamp,_coffType,_coffSize);
     }
 
     /**
