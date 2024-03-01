@@ -87,16 +87,13 @@ export const Navbar = () => {
           </Link>
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
-          <CustomConnectButton nav={true} />
+          <CustomConnectButton />
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-      
-        <CustomConnectButton  />
-        
+        <CustomConnectButton />
       </NavbarContent>
-      
     </NextUINavbar>
   );
 };
