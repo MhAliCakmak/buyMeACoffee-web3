@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -19,9 +20,10 @@ import clsx from "clsx";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { GithubIcon } from "@/components/icons";
 
-
 import { LinkedinIcon } from "lucide-react";
 import Image from "next/image";
+import { CustomConnectButton } from "./customConnectButton";
+import { MenuSection } from "@nextui-org/react";
 
 export const Navbar = () => {
   //   const searchInput = (
@@ -85,23 +87,16 @@ export const Navbar = () => {
           </Link>
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
-          <ConnectButton />
+          <CustomConnectButton nav={true} />
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal href={siteConfig.links.github} aria-label="Github">
-          <GithubIcon className="text-default-500" />
-        </Link>
       
-        <NavbarMenuToggle />
+        <CustomConnectButton  />
+        
       </NavbarContent>
-
-      <NavbarMenu>
-        <div className="mx-4 mt-2 flex flex-col gap-2">
-         <ConnectButton />
-        </div>
-      </NavbarMenu>
+      
     </NextUINavbar>
   );
 };

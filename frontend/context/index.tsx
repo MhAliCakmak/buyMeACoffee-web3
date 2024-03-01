@@ -4,6 +4,7 @@ import {
   RainbowKitProvider,
   getDefaultWallets,
   midnightTheme,
+  useAddRecentTransaction,
 } from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
@@ -90,6 +91,7 @@ export const ContractContext = React.createContext(
     contract: (params: ContractFunctionParams) => Promise<any>;
     address: string;
     provider: any;
+    isConnected: boolean;
   }
 );
 interface ContractFunctionParams {
@@ -102,7 +104,7 @@ export const ContractProvider = ({ children }: { children: ReactNode }) => {
   const publicClient = usePublicClient();
   const { data: walletClient } = useWalletClient();
   const { address } = useAccount();
-
+  const addRecentTransaction = useAddRecentTransaction();
   const contractFunctions = async ({
     functionName,
     methodType,
@@ -117,9 +119,8 @@ export const ContractProvider = ({ children }: { children: ReactNode }) => {
         functionName: functionName,
         args: args,
       });
+     
     } else {
-      console.log(address);
-
       contract = await walletClient?.writeContract({
         abi: ABI,
         address: CONTRACT_ADDRESS,
@@ -129,15 +130,21 @@ export const ContractProvider = ({ children }: { children: ReactNode }) => {
         // @ts-expect-error ts-migrate(2345)
         value: values,
       });
+      addRecentTransaction({
+        hash: contract?.toString(),
+        description: `Write ${functionName} to contract`,
+      });
     }
     return contract;
   };
+
   return (
     <ContractContext.Provider
       value={{
         contract: contractFunctions,
         address: CONTRACT_ADDRESS,
         provider: publicClient,
+        isConnected: walletClient ? true : false,
       }}
     >
       {children}

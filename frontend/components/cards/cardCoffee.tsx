@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import ReactLoading from "react-loading";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -34,11 +35,14 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { SoonerTransaction } from "../soonerTransaction";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { CustomConnectButton } from "../customConnectButton";
 import { toast } from "sonner";
 
 export function CardCoffee() {
-  const { contract } = React.useContext(ContractContext);
+  const { contract, isConnected } = React.useContext(ContractContext);
+  const [loading, setLoading] = React.useState(false);
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof ValidationSchema>>({
     resolver: zodResolver(ValidationSchema),
@@ -50,14 +54,12 @@ export function CardCoffee() {
     },
   });
 
-  
-  
   // 2. Define a submit handler.
   async function onSubmit(data: z.infer<typeof ValidationSchema>) {
-    toast("Event has been created")
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
+      setLoading(true);
       const { name, message, type, size } = data;
 
       const response = await contract({
@@ -66,9 +68,31 @@ export function CardCoffee() {
         args: [name, message, Number(type), Number(size)],
         values: calculateAmount(Number(size), Number(type)),
       });
-      console.log(response);
+      toast("Successfully bought a coffee thanks.", {
+        description: new Date().toLocaleString(),
+        action: {
+          label: "See transaction",
+          onClick: () =>
+            window.open(
+              `
+            https://testnet.bscscan.com/tx/${response.toString()}`,
+              "_blank"
+            ),
+        },
+      });
+      form.reset();
+      setLoading(false);
     } catch (e) {
-      console.log(e);
+      console.error(e);
+      toast("Error buying coffee", {
+        description: new Date().toLocaleString(),
+        action: {
+          label: "Got it",
+          onClick: () => console.log(e),
+        },
+      });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -80,7 +104,6 @@ export function CardCoffee() {
 
   return (
     <Card className="w-[400px]">
-      
       <CardHeader>
         <CardTitle>Checkout point</CardTitle>
         <CardDescription>
@@ -120,7 +143,7 @@ export function CardCoffee() {
                         <Input
                           id="message"
                           {...field}
-                          placeholder="Leave a note to Kodista(Barista)"
+                          placeholder="Leave a note to Codista(Barista)"
                         />
                       </FormControl>
                     </FormItem>
@@ -191,12 +214,24 @@ export function CardCoffee() {
                 />
               </div>
             </div>
-            <Button type="submit" className="mt-3 w-full ">
-              Buy A Coffee - {
-
-              
-              } TBNB
-            </Button>
+            {isConnected ? (
+              <Button type="submit" className="mt-3 w-full">
+                {loading ? (
+                  <ReactLoading
+                    type="bars"
+                    color="ffffff"
+                    height={20}
+                    width={20}
+                  />
+                ) : (
+                  "Buy Me A Coffee"
+                )}
+              </Button>
+            ) : (
+              <div className="mt-3">
+                <CustomConnectButton />
+              </div>
+            )}
           </form>
         </Form>
       </CardContent>

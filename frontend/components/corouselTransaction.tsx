@@ -13,10 +13,9 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import { ContractContext } from "@/context";
+import { toast } from "sonner";
 
 export function CorouselTransaction() {
   const [memos, setMemos] = React.useState([
@@ -37,13 +36,17 @@ export function CorouselTransaction() {
         methodType: "read",
         args: [],
       });
-      console.log("fetching memos from the blockchain..");
-      console.log(response);
+
       setMemos(response);
-      console.log("fetched!");
-      console.log(memos);
+     
     } catch (error) {
-      console.log("error fetching memos from the blockchain..", error);
+      toast("error fetching memos from the blockchain..", {
+        description:new Date().toLocaleString(),
+        action: {
+          label: "Got it",
+          onClick: () => console.log("Undo"),
+        },
+      })
     }
   };
   React.useEffect(() => {
@@ -75,7 +78,8 @@ export function CorouselTransaction() {
                   <CardTitle>{memo.name}</CardTitle>
                   <CardDescription>
                     {types[Number(memo.coffType)]}
-                    <br/>{sizes[Number(memo.coffSize)]}
+                    <br />
+                    {sizes[Number(memo.coffSize)]}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex aspect-auto items-start  px-6">
