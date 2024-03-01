@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import * as React from "react";
-import Autoplay from "embla-carousel-autoplay"
+import Autoplay from "embla-carousel-autoplay";
 
 import {
   Card,
@@ -16,65 +16,76 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-interface Transaction {
-  name: string;
-  message: string;
-  coffeeType: string;
-  size: string;
-}
+import { ContractContext } from "@/context";
+
 export function CorouselTransaction() {
-  const transaction: Transaction[] = [
+  const [memos, setMemos] = React.useState([
     {
-      name: "Mehmet",
-      message: "Message for Kodista!",
-      coffeeType: "Coffee ✨",
-      size: "Small",
+      name: "",
+      message: "",
+      coffType: "",
+      coffSize: "",
+      timestamp: "",
     },
-    {
-      name: "Mehmet",
-      message: "Message for Kodista!",
-      coffeeType: "Turkish Coffee ✨✨",
-      size: "Medium",
-    },
-    {
-      name: "Mehmet",
-      message: "Message for Kodista!",
-      coffeeType: "Latte in Switzerland ✨✨✨",
-      size: "Large",
-    },
-    {
-      name: "Mehmet",
-      message: "Message for Kodista!",
-      coffeeType: "Frappuccino ✨✨✨✨",
-      size: "Extra Large",
-    },
+  ]);
+  const { contract } = React.useContext(ContractContext);
+
+  const getMemos = async () => {
+    try {
+      const response = await contract({
+        functionName: "getMemos",
+        methodType: "read",
+        args: [],
+      });
+      console.log("fetching memos from the blockchain..");
+      console.log(response);
+      setMemos(response);
+      console.log("fetched!");
+      console.log(memos);
+    } catch (error) {
+      console.log("error fetching memos from the blockchain..", error);
+    }
+  };
+  React.useEffect(() => {
+    getMemos();
+  }, []);
+  const types = [
+    "Coffee ✨",
+    "Turkish Coffee ✨✨",
+    "Latte in Switzerland ✨✨✨",
+    "Frappuccino ✨✨✨✨",
   ];
+  const sizes = ["Tall ⚡", "Grande ⚡⚡", "Venti ⚡⚡⚡", "Trenta ⚡⚡⚡⚡"];
+
   return (
-    <Carousel  plugins={[
-      Autoplay({
-        delay: 1500,
-      }),
-    ]} className="w-full justify-center max-w-sm sm:max-w-lg">
+    <Carousel
+      plugins={[
+        Autoplay({
+          delay: 1500,
+        }),
+      ]}
+      className="w-full justify-center max-w-sm sm:max-w-lg"
+    >
       <CarouselContent className="">
-        {transaction.map((tran, index) => (
+        {memos?.map((memo, index) => (
           <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/1">
             <div className="p-1">
               <Card>
                 <CardHeader>
-                  <CardTitle>{tran.name}</CardTitle>
+                  <CardTitle>{memo.name}</CardTitle>
                   <CardDescription>
-                    {tran.coffeeType}-{tran.size}
+                    {types[Number(memo.coffType)]}
+                    <br/>{sizes[Number(memo.coffSize)]}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex aspect-auto items-start  px-6">
-                  {tran.message}
+                  {memo.message}
                 </CardContent>
               </Card>
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
-     
     </Carousel>
   );
 }

@@ -109,9 +109,6 @@ export const ContractProvider = ({ children }: { children: ReactNode }) => {
     args,
     values,
   }: ContractFunctionParams) => {
-    if (!address) {
-      return;
-    }
     let contract;
     if (methodType === "read") {
       contract = await publicClient?.readContract({

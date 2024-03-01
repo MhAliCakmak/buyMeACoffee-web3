@@ -10,6 +10,8 @@ import clsx from "clsx";
 import { ContextProvider } from '@/context'
 
 import { Inter as FontSans } from "next/font/google"
+import { SoonerTransaction } from "@/components/soonerTransaction";
+import { Toaster } from "sonner";
  
 
 export const metadata: Metadata = {
@@ -46,23 +48,25 @@ export default function RootLayout({
 				)}
 			> <ContextProvider>
 				<Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-					<div className="relative flex flex-col h-full">
+					<div className="relative flex flex-col h-max">
 						<Navbar />
-						<main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+						<main className="container mx-auto max-w-7xl  px-6 flex-grow">
 							{children}
+						
 						</main>
 						<footer className="w-full flex items-center justify-center py-3">
 							<Link
 								isExternal
-								className="flex items-center gap-1 text-current"
+								className="flex items-center gap-1 text-current "
 								href="https://mehmetalicakmak.org"
 								title="Mehmet Ali Çakmak's website"
 							>
-								<span className="text-default-600">Powered by</span>
-								<p className="text-blue-500 hover:text-blue-600">Mehmet Ali Çakmak</p>
+								<span className="text-default-600 underline-offset-[20px]">Powered by</span>
+								<p style={{textDecoration: "underline"}} className="text-blue-500 hover:text-blue-600">Mehmet Ali Çakmak</p>
 							</Link>
 						</footer>
 					</div>
+					<Toaster />
 				</Providers>
 			</ContextProvider>
 			</body>

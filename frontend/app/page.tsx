@@ -24,7 +24,7 @@ export default function Home() {
     chooseColor[Math.floor(Math.random() * chooseColor.length)];
 
   return (
-    <section className="flex sm:flex-row flex-col items-center justify-around gap-4 py-8 md:py-10">
+    <section className="flex sm:flex-row flex-col items-center justify-around gap-4 py-6 md:pt-12">
       <div className="inline-block max-w-lg text-start justify-center">
         <h1 className={title()}>Buy Me A&nbsp;</h1>
         <h1 className={title({ color: randomColor })}>Coffee !&nbsp;</h1>
@@ -37,7 +37,7 @@ export default function Home() {
 
 		<div className="mt-4">
 
-		<DrawerCoffee />
+		{/* <DrawerCoffee /> */}
     <CorouselTransaction/>
 		</div>
       </div>

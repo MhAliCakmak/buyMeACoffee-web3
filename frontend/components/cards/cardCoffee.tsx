@@ -23,7 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ContractContext } from "@/context";
-import { parseEther ,formatEther} from "viem";
+import { parseEther, formatEther } from "viem";
 import { ValidationSchema } from "@/lib/validation";
 import {
   Form,
@@ -34,10 +34,11 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { SoonerTransaction } from "../soonerTransaction";
+import { toast } from "sonner";
 
 export function CardCoffee() {
   const { contract } = React.useContext(ContractContext);
-
   // 1. Define your form.
   const form = useForm<z.infer<typeof ValidationSchema>>({
     resolver: zodResolver(ValidationSchema),
@@ -48,8 +49,12 @@ export function CardCoffee() {
       size: "",
     },
   });
+
+  
+  
   // 2. Define a submit handler.
   async function onSubmit(data: z.infer<typeof ValidationSchema>) {
+    toast("Event has been created")
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
@@ -58,13 +63,8 @@ export function CardCoffee() {
       const response = await contract({
         functionName: "buyCoffee",
         methodType: "write",
-        args: [
-          name,
-          message,
-          Number(type),
-          Number(size),
-        ],
-        values: calculateAmount(Number(size), Number(type))
+        args: [name, message, Number(type), Number(size)],
+        values: calculateAmount(Number(size), Number(type)),
       });
       console.log(response);
     } catch (e) {
@@ -75,12 +75,12 @@ export function CardCoffee() {
   const calculateAmount = (size: number, type: number) => {
     if (!isFinite(size)) throw new Error("Size must be a number");
     if (!isFinite(type)) throw new Error("Type must be a number");
-    console.log(formatEther(parseEther(((size + type + 1) / 100).toString())))
     return parseEther(((size + type + 1) / 100).toString());
   };
 
   return (
     <Card className="w-[400px]">
+      
       <CardHeader>
         <CardTitle>Checkout point</CardTitle>
         <CardDescription>
@@ -191,8 +191,11 @@ export function CardCoffee() {
                 />
               </div>
             </div>
-            <Button type="submit" className="mt-2 w-full ">
-              Buy A Coffee
+            <Button type="submit" className="mt-3 w-full ">
+              Buy A Coffee - {
+
+              
+              } TBNB
             </Button>
           </form>
         </Form>
