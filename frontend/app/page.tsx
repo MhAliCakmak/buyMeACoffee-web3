@@ -1,14 +1,7 @@
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code";
-import { button as buttonStyles } from "@nextui-org/theme";
-import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { CardCoffee } from "@/components/cards/cardCoffee";
-import { DrawerCoffee } from "@/components/cards/drawerCoffee";
 import { CorouselTransaction } from "@/components/corouselTransaction";
+import { DrawerCoffee } from "@/components/cards/drawerCoffee";
 
 export default function Home() {
   const chooseColor = [
@@ -30,18 +23,19 @@ export default function Home() {
         <h1 className={title({ color: randomColor })}>Coffee !&nbsp;</h1>
 
         <h2 className={subtitle({ class: "mt-4" })}>
-         Buy a Coffee for Most Attractive{` `}
-          <span className={title({ color: randomColor,size:"sm" })}>(My Guess)</span>,
-          decentralized and modern Blockchain Developer 😴😴
+          Buy a Coffee for Most Attractive{` `}
+          <span className={title({ color: randomColor, size: "sm" })}>
+            (My Guess)
+          </span>
+          , decentralized and modern Blockchain Developer 😴😴
         </h2>
 
-		<div className="pt-4">
-
-		{/* <DrawerCoffee /> */}
-    <CorouselTransaction/>
-		</div>
+        <div className="pt-4">
+          <DrawerCoffee  />
+          <CorouselTransaction />
+        </div>
       </div>
-      <div className="flex bg-gradient-to-b">
+      <div className="hidden bg-gradient-to-b md:block lg:block">
         <CardCoffee />
       </div>
     </section>
