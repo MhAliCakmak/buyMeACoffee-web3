@@ -67,8 +67,8 @@ export function ContextProvider({
           locale="en-US"
           theme={midnightTheme({
             accentColor:
-              "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 24%, rgba(0,212,255,1) 100%)",
-            accentColorForeground: "white",
+              "white",
+            accentColorForeground: "black",
             borderRadius: "medium",
             fontStack: "system",
             overlayBlur: "small",
@@ -131,6 +131,7 @@ export const ContractProvider = ({ children }: { children: ReactNode }) => {
         value: values,
       });
       addRecentTransaction({
+        // @ts-expect-error ts-migrate(2345)
         hash: contract?.toString(),
         description: `Write ${functionName} to contract`,
       });

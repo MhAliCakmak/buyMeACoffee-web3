@@ -103,7 +103,7 @@ export function CardCoffee() {
   };
 
   return (
-    <Card className="w-[400px]">
+    <Card className="sm:w-[400px] w-[300px] bg-gradient-to-b ">
       <CardHeader>
         <CardTitle>Checkout point</CardTitle>
         <CardDescription>

@@ -24,8 +24,8 @@ export default function Home() {
     chooseColor[Math.floor(Math.random() * chooseColor.length)];
 
   return (
-    <section className="flex sm:flex-row flex-col items-center justify-around gap-4 py-6 md:pt-12">
-      <div className="inline-block max-w-lg text-start justify-center">
+    <section className="flex flex-col lg:flex-row items-center justify-around gap-4 py-6 md:pt-12">
+      <div className="max-w-lg text-start justify-center">
         <h1 className={title()}>Buy Me A&nbsp;</h1>
         <h1 className={title({ color: randomColor })}>Coffee !&nbsp;</h1>
 
@@ -35,13 +35,13 @@ export default function Home() {
           decentralized and modern Blockchain Developer 😴😴
         </h2>
 
-		<div className="mt-4">
+		<div className="pt-4">
 
 		{/* <DrawerCoffee /> */}
     <CorouselTransaction/>
 		</div>
       </div>
-      <div className="flex gap-3 ">
+      <div className="flex bg-gradient-to-b">
         <CardCoffee />
       </div>
     </section>

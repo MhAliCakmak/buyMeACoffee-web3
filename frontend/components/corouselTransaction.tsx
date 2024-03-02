@@ -67,7 +67,7 @@ export function CorouselTransaction() {
           delay: 1500,
         }),
       ]}
-      className="w-full justify-center max-w-sm sm:max-w-lg"
+      className="w-full justify-center max-w-xs sm:max-w-lg"
     >
       <CarouselContent className="">
         {memos?.map((memo, index) => (

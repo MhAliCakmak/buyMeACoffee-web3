@@ -46,27 +46,10 @@ export default function RootLayout({
           <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
             <div className="relative flex flex-col h-max">
               <Navbar />
-              <main className="container mx-auto max-w-7xl  px-6 flex-grow">
+              <main className="container mx-auto max-w-7xl   flex-grow pt-12">
                 {children}
               </main>
-              <footer className="w-full flex items-center justify-center py-3">
-                <Link
-                  isExternal
-                  className="flex items-center gap-1 text-current "
-                  href="https://mehmetalicakmak.org"
-                  title="Mehmet Ali Çakmak's website"
-                >
-                  <span className="text-default-600 underline-offset-[20px]">
-                    Powered by
-                  </span>
-                  <p
-                    style={{ textDecoration: "underline" }}
-                    className="text-blue-500 hover:text-blue-600"
-                  >
-                    Mehmet Ali Çakmak
-                  </p>
-                </Link>
-              </footer>
+             
             </div>
             <Toaster/>
           </Providers>
