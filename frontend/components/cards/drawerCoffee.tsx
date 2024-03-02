@@ -126,6 +126,7 @@ export function DrawerCoffee() {
                       <FormField
                         control={form.control}
                         name="name"
+                        arial-label="name"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel htmlFor="name">Name</FormLabel>
@@ -144,6 +145,7 @@ export function DrawerCoffee() {
                       <FormField
                         control={form.control}
                         name="message"
+                        arial-label="message"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Message</FormLabel>
@@ -162,6 +164,7 @@ export function DrawerCoffee() {
                       <FormField
                         control={form.control}
                         name="type"
+                        arial-label="type"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel htmlFor="type">Coffee Type</FormLabel>
@@ -198,6 +201,7 @@ export function DrawerCoffee() {
                       <FormField
                         control={form.control}
                         name="size"
+                        arial-label="size"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel htmlFor="size">Coffee Size</FormLabel>

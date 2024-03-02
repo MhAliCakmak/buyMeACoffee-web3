@@ -118,6 +118,7 @@ export function CardCoffee() {
                 <FormField
                   control={form.control}
                   name="name"
+                  aria-label="name"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel htmlFor="name">Name</FormLabel>
@@ -136,6 +137,7 @@ export function CardCoffee() {
                 <FormField
                   control={form.control}
                   name="message"
+                  aria-label="message"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Message</FormLabel>
@@ -154,6 +156,7 @@ export function CardCoffee() {
                 <FormField
                   control={form.control}
                   name="type"
+                  arial-label="type"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel htmlFor="type">Coffee Type</FormLabel>
@@ -188,6 +191,7 @@ export function CardCoffee() {
                 <FormField
                   control={form.control}
                   name="size"
+                  arial-label="size"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel htmlFor="size">Coffee Size</FormLabel>
