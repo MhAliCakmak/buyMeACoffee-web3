@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/carousel";
 import { ContractContext } from "@/context";
 import { toast } from "sonner";
+import { CardFooter } from "@nextui-org/react";
 
 export function CorouselTransaction() {
   const [memos, setMemos] = React.useState([
@@ -24,7 +25,7 @@ export function CorouselTransaction() {
       message: "",
       coffType: "",
       coffSize: "",
-      timestamp: "",
+      timestamp: BigInt(0),
     },
   ]);
   const { contract } = React.useContext(ContractContext);
@@ -37,18 +38,23 @@ export function CorouselTransaction() {
         args: [],
       });
 
-      setMemos(response);
-     
+      setMemos(response.reverse());
     } catch (error) {
       toast("error fetching memos from the blockchain..", {
-        description:new Date().toLocaleString(),
+        description: new Date().toLocaleString(),
         action: {
           label: "Got it",
           onClick: () => console.log("Undo"),
         },
-      })
+      });
     }
   };
+
+  function convertTimestampToDate(timestamp: bigint) {
+    let date = new Date(Number(timestamp) * 1000);
+    return date.toDateString();
+  }
+
   React.useEffect(() => {
     getMemos();
   }, []);
@@ -67,9 +73,9 @@ export function CorouselTransaction() {
           delay: 1500,
         }),
       ]}
-      className="w-full justify-center max-w-xs sm:max-w-lg"
+      className="w-full justify-center max-w-xs sm:max-w-lg mx-auto"
     >
-      <CarouselContent className="">
+      <CarouselContent className="items-center">
         {memos?.map((memo, index) => (
           <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/1">
             <div className="p-1">
@@ -82,9 +88,14 @@ export function CorouselTransaction() {
                     {sizes[Number(memo.coffSize)]}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="flex aspect-auto items-start  px-6">
+                <CardContent className="flex aspect-[4] items-start  px-6">
                   {memo.message}
                 </CardContent>
+                <CardHeader>
+                  <CardDescription>
+                    {convertTimestampToDate(memo.timestamp).toLocaleString()}
+                  </CardDescription>
+                </CardHeader>
               </Card>
             </div>
           </CarouselItem>

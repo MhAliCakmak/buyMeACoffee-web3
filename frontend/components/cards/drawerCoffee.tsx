@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import ReactLoading from "react-loading";
@@ -24,11 +24,18 @@ import {
 import { toast } from "sonner";
 import { ValidationSchema } from "@/lib/validation";
 import { z } from "zod";
-import {  useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ContractContext } from "@/context";
 import { parseEther } from "viem";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 import { CustomConnectButton } from "../customConnectButton";
 
 export function DrawerCoffee() {
@@ -97,7 +104,11 @@ export function DrawerCoffee() {
     <div className="mb-4 block xs:hidden  md:hidden w-full">
       <Drawer>
         <DrawerTrigger asChild>
-          <Button variant="outline">Checkout point</Button>
+          {isConnected ? (
+            <Button  className="w-full">Checkout point</Button>
+          ) : (
+            <CustomConnectButton outline title="Please connect your wallet to buy coffee."/>
+          )}
         </DrawerTrigger>
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">
@@ -108,139 +119,140 @@ export function DrawerCoffee() {
               </DrawerDescription>
             </DrawerHeader>
             <div className="p-4 pb-0">
-            <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel htmlFor="name">Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          id="name"
-                          {...field}
-                          placeholder="For writing on the cup"
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Message</FormLabel>
-                      <FormControl>
-                        <Input
-                          id="message"
-                          {...field}
-                          placeholder="Leave a note to Codista(Barista)"
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <FormField
-                  control={form.control}
-                  name="type"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel htmlFor="type">Coffee Type</FormLabel>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
+                  <div className="grid w-full items-center gap-4">
+                    <div className="flex flex-col space-y-1.5">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel htmlFor="name">Name</FormLabel>
+                            <FormControl>
+                              <Input
+                                id="name"
+                                {...field}
+                                placeholder="For writing on the cup"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                      <FormField
+                        control={form.control}
+                        name="message"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Message</FormLabel>
+                            <FormControl>
+                              <Input
+                                id="message"
+                                {...field}
+                                placeholder="Leave a note to Codista(Barista)"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                      <FormField
+                        control={form.control}
+                        name="type"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel htmlFor="type">Coffee Type</FormLabel>
 
-                      <Select
-                        {...field}
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Choose a Coffee" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent position="popper">
-                          <SelectItem value="0">Coffee ✨</SelectItem>
-                          <SelectItem value="1">Turkish Coffee ✨✨</SelectItem>
-                          <SelectItem value="2">
-                            Latte in Switzerland ✨✨✨
-                          </SelectItem>
-                          <SelectItem value="3">
-                            Frappuccino ✨✨✨✨
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <FormField
-                  control={form.control}
-                  name="size"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel htmlFor="size">Coffee Size</FormLabel>
-                      <Select
-                        {...field}
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Choose a Size" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent position="popper">
-                          <SelectItem value="0">Tall ⚡</SelectItem>
-                          <SelectItem value="1">Grande ⚡⚡</SelectItem>
-                          <SelectItem value="2">Venti ⚡⚡⚡</SelectItem>
-                          <SelectItem value="3">Trenta ⚡⚡⚡⚡</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
-            <DrawerFooter>
-            {isConnected ? (
-              <Button type="submit" className="mt-3 w-full">
-                {loading ? (
-                  <ReactLoading
-                    type="bars"
-                    color="ffffff"
-                    height={20}
-                    width={20}
-                  />
-                ) : (
-                  "Buy Me A Coffee"
-                )}
-              </Button>
-            ) : (
-              <div className="mt-3 z-50">
-                <CustomConnectButton />
-              </div>
-            )}
+                            <Select
+                              {...field}
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Choose a Coffee" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent position="popper">
+                                <SelectItem value="0">Coffee ✨</SelectItem>
+                                <SelectItem value="1">
+                                  Turkish Coffee ✨✨
+                                </SelectItem>
+                                <SelectItem value="2">
+                                  Latte in Switzerland ✨✨✨
+                                </SelectItem>
+                                <SelectItem value="3">
+                                  Frappuccino ✨✨✨✨
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                      <FormField
+                        control={form.control}
+                        name="size"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel htmlFor="size">Coffee Size</FormLabel>
+                            <Select
+                              {...field}
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Choose a Size" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent position="popper">
+                                <SelectItem value="0">Tall ⚡</SelectItem>
+                                <SelectItem value="1">Grande ⚡⚡</SelectItem>
+                                <SelectItem value="2">Venti ⚡⚡⚡</SelectItem>
+                                <SelectItem value="3">
+                                  Trenta ⚡⚡⚡⚡
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <DrawerFooter>
+                    {isConnected ? (
+                      <Button type="submit" className="mt-3 w-full">
+                        {loading ? (
+                          <ReactLoading
+                            type="bars"
+                            color="ffffff"
+                            height={20}
+                            width={20}
+                          />
+                        ) : (
+                          "Buy Me A Coffee"
+                        )}
+                      </Button>
+                    ) : (
+                      <div className="mt-3 z-auto">
+                        <CustomConnectButton />
+                      </div>
+                    )}
 
-            <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </form>
+                    <DrawerClose asChild>
+                      <Button variant="outline">Cancel</Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </form>
               </Form>
-
-              
             </div>
-           
           </div>
         </DrawerContent>
       </Drawer>

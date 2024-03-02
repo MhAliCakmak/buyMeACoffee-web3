@@ -229,7 +229,7 @@ export function CardCoffee() {
               </Button>
             ) : (
               <div className="mt-3">
-                <CustomConnectButton />
+                <CustomConnectButton outline title="Please connect your wallet to buy coffee." />
               </div>
             )}
           </form>

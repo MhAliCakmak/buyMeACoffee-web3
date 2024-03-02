@@ -24,7 +24,7 @@ export default function Home() {
 
         <h2 className={subtitle({ class: "mt-4" })}>
           Buy a Coffee for Most Attractive{` `}
-          <span className={title({ color: randomColor, size: "sm" })}>
+          <span className={title({ color: randomColor, size: "xs" })}>
             (My Guess)
           </span>
           , decentralized and modern Blockchain Developer 😴😴
